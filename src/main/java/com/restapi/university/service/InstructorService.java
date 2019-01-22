@@ -1,6 +1,8 @@
 package com.restapi.university.service;
 
+import com.restapi.university.dao.CourseDao;
 import com.restapi.university.dao.InstructorDao;
+import com.restapi.university.entity.Course;
 import com.restapi.university.entity.Instructor;
 import com.restapi.university.entity.InstructorDetail;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,8 @@ public class InstructorService {
 
     @Autowired
     InstructorDao instructorDao;
+    @Autowired
+    CourseDao courseDao;
     public List<Instructor> getAllInstructor(){
         return instructorDao.findAll();
 
@@ -63,6 +67,37 @@ public class InstructorService {
 
         instructorDao.save(instructor);
     }
+
+    public void addCourseToInstructor(int instructorId,  Course course)
+    {
+        Instructor instructor=instructorDao.findById(instructorId).get();
+        course.setInstructor(instructor);
+
+        courseDao.save(course);
+
+
+
+    }
+
+    public void updateCourse(Course course){
+
+
+        Course tempCourse= courseDao.findById(course.getId()).get();
+        tempCourse.setTitle(course.getTitle());
+
+
+
+
+        courseDao.save(tempCourse);
+
+
+    }
+    public void deleteCourseById(int courseId)
+    {
+        courseDao.deleteById(courseId);
+    }
+
+
 
 
 }
