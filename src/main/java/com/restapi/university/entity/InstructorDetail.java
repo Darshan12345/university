@@ -1,5 +1,7 @@
 package com.restapi.university.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -39,6 +41,7 @@ public class InstructorDetail {
         this.instructor = instructor;
     }
 
+    @JsonBackReference
     @OneToOne(mappedBy = "instructorDetail", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Instructor instructor;
 

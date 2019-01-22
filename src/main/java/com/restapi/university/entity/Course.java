@@ -1,7 +1,7 @@
 package com.restapi.university.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -20,9 +20,8 @@ public class Course {
     @Column(name="title")
     String title;
 
-
-    @JsonIgnore()
-@ManyToOne(fetch = FetchType.LAZY,cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+    @JsonIgnoreProperties(allowSetters=true, value = "courses")
+@ManyToOne(fetch = FetchType.EAGER,cascade= {CascadeType.PERSIST, CascadeType.MERGE,
         CascadeType.DETACH, CascadeType.REFRESH})
 @JoinColumn(name = "instructor_id")
     Instructor instructor;

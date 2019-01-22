@@ -1,5 +1,9 @@
 package com.restapi.university.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +26,12 @@ public class Instructor {
     @Column(name="email")
     String email;
 
+    @JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "instructor_detail_id")
     InstructorDetail instructorDetail;
 
-
+    @JsonIgnoreProperties(allowSetters=true, value = "instructor")
     @OneToMany(fetch = FetchType.LAZY , mappedBy = "instructor" ,   cascade= {CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH})
     List<Course> courses;

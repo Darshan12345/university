@@ -48,6 +48,8 @@ public class InstructorService {
         instructorDao.save(instructor);
 
     }
+
+
     public void updateInstructionDetail(int instructorId, InstructorDetail instructorDetail)
     {
         Instructor instructor=instructorDao.findById(instructorId).get();
@@ -79,10 +81,10 @@ public class InstructorService {
 
     }
 
-    public void updateCourse(Course course){
+    public void updateCourse(int instructorId,Course course){
 
 
-        Course tempCourse= courseDao.findById(course.getId()).get();
+        Course tempCourse= courseDao.findById(instructorId).get();
         tempCourse.setTitle(course.getTitle());
 
 
