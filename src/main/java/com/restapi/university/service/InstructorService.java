@@ -26,7 +26,7 @@ public class InstructorService {
 
     public Instructor findInstructorById(int id)
     {
-        return instructorDao.findById(id).get();
+        return instructorDao.findById(id).orElse(null);
     }
 
 
@@ -63,21 +63,20 @@ public class InstructorService {
     {
         Instructor tempInstructor= instructorDao.findById(instructorId).get();
 
-        instructor.setInstructorDetail(tempInstructor.getInstructorDetail());
+        //instructor.setInstructorDetail(tempInstructor.getInstructorDetail());
         instructor.setCourses(tempInstructor.getCourses());
 
 
+        System.out.println(instructor);
         instructorDao.save(instructor);
     }
 
     public void addCourseToInstructor(int instructorId,  Course course)
     {
         Instructor instructor=instructorDao.findById(instructorId).get();
-        course.setInstructor(instructor);
 
-        courseDao.save(course);
-
-
+        instructor.add(course);
+        instructorDao.save(instructor);
 
     }
 

@@ -27,7 +27,7 @@ public class CourseService {
 
     public Course getCourseById(int id)
     {
-        return courseDao.findById(id).get();
+        return courseDao.findById(id).orElse(null);
     }
 
     public void addCourse(Course course)
@@ -52,6 +52,7 @@ public class CourseService {
     }
 
     public void deleteCourseById(int courseId){
+
         courseDao.deleteById(courseId);
     }
 
@@ -92,5 +93,7 @@ public class CourseService {
     {
        return getCourseById(courseId).getReviews();
     }
+
+
 }
 

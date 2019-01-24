@@ -2,6 +2,7 @@ package com.restapi.university.controller;
 
 import com.restapi.university.entity.Course;
 import com.restapi.university.entity.Review;
+import com.restapi.university.exception.ResourceNotFound;
 import com.restapi.university.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +20,16 @@ public class CourseController {
        return courseService.getAllCourse();
     }
     @GetMapping("/courses/{courseId}")
-    public void getCourseById(@PathVariable int courseId){
-        courseService.getCourseById(courseId);
+    public Course getCourseById(@PathVariable int courseId){
+
+
+      Course course=  courseService.getCourseById(courseId);
+      if(course==null)
+      {
+          throw new ResourceNotFound("course not found with id:"+courseId);
+
+      }
+      return course;
     }
 
     @DeleteMapping("/courses/{courseId}")

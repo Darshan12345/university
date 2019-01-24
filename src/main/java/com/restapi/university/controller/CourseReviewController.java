@@ -20,6 +20,7 @@ public class CourseReviewController {
 
     }
 
+
     @PostMapping("{courseId}/review")
     public void addReview(@RequestBody Review review, @PathVariable int courseId)
     {

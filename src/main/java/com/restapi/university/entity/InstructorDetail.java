@@ -1,6 +1,8 @@
 package com.restapi.university.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 
@@ -41,7 +43,7 @@ public class InstructorDetail {
         this.instructor = instructor;
     }
 
-    @JsonBackReference
+    @JsonIgnoreProperties(allowSetters=true, value = "instructorDetail")
     @OneToOne(mappedBy = "instructorDetail", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Instructor instructor;
 

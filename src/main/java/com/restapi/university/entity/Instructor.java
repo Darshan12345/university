@@ -1,6 +1,7 @@
 package com.restapi.university.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -26,7 +27,7 @@ public class Instructor {
     @Column(name="email")
     String email;
 
-    @JsonManagedReference
+    @JsonIgnoreProperties(allowSetters=true, value = "instructor")
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "instructor_detail_id")
     InstructorDetail instructorDetail;
